@@ -31,6 +31,3 @@ class Database:
     
     def rollback(self):
         self.connection.rollback()
-
-
-db = Database('library.db')
