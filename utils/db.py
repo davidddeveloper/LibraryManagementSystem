@@ -9,7 +9,9 @@ class Database:
     def __del__(self):
         self.connection.close()
 
-    def execute(self, query):
+    def execute(self, query, params=None):
+        if params:
+            return self.cursor.execute(query, parameters=params)
         return self.cursor.execute(query)
 
     def commit(self):
@@ -32,4 +34,3 @@ class Database:
 
 
 db = Database('library.db')
-db.execute("CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY, title TEXT, author TEXT, genre TEXT)")
