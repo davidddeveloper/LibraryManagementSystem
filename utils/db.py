@@ -11,7 +11,7 @@ class Database:
 
     def execute(self, query, params=None):
         if params:
-            return self.cursor.execute(query, parameters=params)
+            return self.cursor.execute(query, params)
         return self.cursor.execute(query)
 
     def commit(self):
