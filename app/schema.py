@@ -26,22 +26,9 @@ class Library:
         self.db.execute("DELETE FROM books WHERE id = ?", (book_id,))
         self.db.commit()
     
-    def search_books(self, title=None, author=None, isbn=None, genre=None):
-        query = "SELECT * FROM books WHERE 1=1"
-        params = []
-
-        if title:
-            query += " AND title LIKE ?"
-            params.append(f"%{title}%")
-        if author:
-            query += " AND author LIKE ?"
-            params.append(f"%{author}%")
-        if isbn:
-            query += " AND isbn LIKE ?"
-            params.append(f"%{isbn}%")
-        if genre:
-            query += " AND genre LIKE ?"
-            params.append(f"%{genre}%")
+    def search_books(self, search_term):
+        query = "SELECT * FROM books WHERE title LIKE ? OR author LIKE ? OR isbn LIKE ? OR genre LIKE ? OR publication_year LIKE ?"
+        params = [f"%{search_term}%", f"%{search_term}%", f"%{search_term}%", f"%{search_term}%", f"%{search_term}%"]
 
         self.db.execute(query, params)
         return self.db.fetchall()
